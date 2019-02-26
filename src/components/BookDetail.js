@@ -10,7 +10,7 @@ class BookDetail extends Component{
     }
 
 async  componentDidMount(){
-        await fetch('http://localhost:3001/url/'+this.props.match.params.id)
+        await fetch('http://localhost:8080/book/'+this.props.match.params.id)
         .then((response) =>{
             return response.json();
         })

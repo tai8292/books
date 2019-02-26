@@ -1,4 +1,4 @@
-const data = [{
+let data = [{
     "id": 1,
     "name": "Carrol",
     "price": 8,
@@ -132,13 +132,23 @@ var cors = require('cors');
 // Then use it before your routes are set up:
 app.use(cors());
 
-app.get("/url", (req, res, next) => {
+app.get("/books", (req, res, next) => {
     res.json(data);
 });
 
-app.get("/url/:id", (req, res, next) => {
+app.get("/books/:id", (req, res, next) => {
     const id = parseInt(req.params.id, 10);
     res.json(data[id-1]);
+});
+
+app.post("/books/new", (req,res,next) =>{
+    let book = {
+      id : req.params.id,
+      name  : req.params.name,
+      price : req.params.price,
+      actor : req.params.actor
+    }
+    data[101] = book;
 });
 
 app.listen(3001, () => {

@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css"
 
 class Newbook extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            book : null,
             id : null,
             name : null,
             price : null,
             actor : null
         }
+        this.renderData = this.renderData.bind(this);
     }
 
     componentDidMount(){
 
     }
 
- async   renderData()
+async    renderData()
     {
-    await    const addNew = ()=>{
-            this.setState({
-                id : document.getElementById("id").value,
-                name : document.getElementById("name").value,
-                price : document.getElementById("price").value,
-                actor : document.getElementById("actor").value    
-            });
-        }
+        const idb = document.getElementById('id').value;
+        const nameb = document.getElementById('name').value;
+        const priceb = document.getElementById('price').value;
+        const actorb = document.getElementById('actor').value;
+   await     this.setState({
+            id:idb,
+            name:nameb,
+            price : priceb,
+            actor : actorb
+        });
     }
 
     back = e => {

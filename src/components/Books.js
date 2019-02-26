@@ -15,7 +15,7 @@ class Books extends Component{
 
 async componentDidMount()
     {
-       await fetch('http://localhost:3001/url')
+       await fetch('http://localhost:8080/book/all')
         .then((response) =>{
             return response.json();
         })
