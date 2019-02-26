@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import BookDetail from './BookDetail';
+import EditBook from './EditBook';
+import DeleteBook from './DeleteBook';
 
 class Books extends Component{
 
@@ -24,15 +26,28 @@ async componentDidMount()
         }); 
     }
 
+    async   componentWillReceiveProps()
+    {
+        await fetch('http://localhost:8080/book/all')
+        .then((response) =>{
+            return response.json();
+        })
+        .then((data) =>{
+            this.setState({books : Array.from(data)});
+        }); 
+    }
+
     renderRow()
     {
-        let {books} = this.state;
+        let {books} = this.state;   
         return books.map((book) =>
             <tr key ={book.id}>
                 <td>{book.id}</td>
                 <td>{book.name}</td>
                 <td>{book.price}</td>
-                <td><Button variant="success"><Link to={`/books/${book.id}`} style ={{color: 'white'}} >Chi tiết</Link></Button></td>
+                <td><Button variant="success"><Link to={`/books/view/${book.id}`} style ={{color: 'white'}} >View</Link></Button></td>
+                <td><Button variant="secondary"><Link to={`/books/edit/${book.id}`} style ={{color: 'white'}} >Edit</Link></Button></td>
+                <td><Button variant="danger"><Link to={`/books/delete/${book.id}`} style ={{color: 'white'}} >Delele</Link></Button></td>
             </tr>   
         )
     }
@@ -40,13 +55,15 @@ async componentDidMount()
     render()
     {
         let renderRow = this.renderRow();
-        return (
+        return (        
             <div className="container">
                 <Router>
                     <div>
-                        <Route path="/books/:id" component= {BookDetail} />
+                        <Route path="/books/view/:id" component= {BookDetail} />
+                        <Route path="/books/edit/:id" component= {EditBook} />
+                        <Route path="/books/delete/:id" component= {DeleteBook} />
                             <div>   
-                                <table>
+                                <table style = {{width: '100%'}}>
                                     <thead>
                                         <tr>
                                             <th>ID</th>
