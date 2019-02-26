@@ -13,11 +13,18 @@ class Books extends Component{
         this.state = {
             books :[]
         }
+        this.search = this.search.bind(this);
+        this.getAllBook = this.getAllBook.bind(this);
     }
 
-async componentDidMount()
+    componentDidMount()
     {
-       await fetch('http://localhost:8080/book/all')
+        this.getAllBook();
+    }
+
+async   getAllBook()
+    {
+        await fetch('http://localhost:8080/book/all')
         .then((response) =>{
             return response.json();
         })
@@ -28,6 +35,7 @@ async componentDidMount()
 
     async   componentWillReceiveProps()
     {
+        if(document.getElementById("value").value === ""){
         await fetch('http://localhost:8080/book/all')
         .then((response) =>{
             return response.json();
@@ -35,6 +43,7 @@ async componentDidMount()
         .then((data) =>{
             this.setState({books : Array.from(data)});
         }); 
+    }
     }
 
     renderRow()
@@ -52,11 +61,29 @@ async componentDidMount()
         )
     }
 
+async    search()
+    {
+        let value = document.getElementById("value").value;
+        if(value === ""){
+            this.getAllBook();
+            return;
+        }
+        await fetch('http://localhost:8080/book/find/'+value)
+        .then((response) =>{
+            return response.json();
+        })
+        .then((data) =>{
+            this.setState({books : Array.from(data)});
+        });
+    }
+
     render()
     {
         let renderRow = this.renderRow();
         return (        
             <div className="container">
+                <input type="text" id="value" ></input>
+                <Button variant="info" onClick={this.search}>Search</Button>
                 <Router>
                     <div>
                         <Route path="/books/view/:id" component= {BookDetail} />

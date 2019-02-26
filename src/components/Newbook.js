@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap.min.css'
 
 class Newbook extends Component{
 
@@ -20,12 +20,10 @@ class Newbook extends Component{
     }
 
 async    renderData(){
-        const idb = document.getElementById('id').value;
         const nameb = document.getElementById('name').value;
         const priceb = document.getElementById('price').value;
         const actorb = document.getElementById('actor').value;
    await     this.setState({
-            id:idb,
             name:nameb,
             price : priceb,
             actor : actorb
@@ -67,14 +65,6 @@ async    newBook(){
                     }}>
                     <h1>New Book</h1>
                     <form>
-                        <div className = "row">
-                            <div className = "col-sm-4">
-                                <h3>ID :</h3>
-                            </div>
-                            <div className = "col-sm-8">
-                                <input id="id" type="text"></input>
-                            </div>
-                        </div>
                         <div className = "row">
                             <div className = "col-sm-4">
                                 <h3>Name :</h3>
